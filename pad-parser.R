@@ -75,7 +75,7 @@ processa_txt <- function(arquivo, larguras, colunas, tipos){
 #definição dos arquivos
 empenho <- processa_txt(
   "EMPENHO.TXT",
-  c(2,2,2,3,4,3,5,15,4,4,13,2,2,4,13,1,10,165,03,2,1,20,20,4,400,3,2,1,1,14,4),
+  c(2,2,2,3,4,3,5,15,4,4,13,8,13,1,10,165,03,2,1,20,20,4,400,3,2,1,1,14,4),
   c(
     "orgao",
     "uniorcam",
@@ -88,9 +88,7 @@ empenho <- processa_txt(
     "recurso_vinculado",
     "contrapartida_recurso_vinculado",
     "numero_empenho",
-    "dia",
-    "mes",
-    "ano",
+    "data",
     "valor",
     "sinal",
     "credor",
@@ -121,9 +119,7 @@ empenho <- processa_txt(
     "recurso_vinculado"="integer",
     "contrapartida_recurso_vinculado"="integer",
     "numero_empenho"="character",
-    "dia"="integer",
-    "mes"="integer",
-    "ano"="integer",
+    "data"="character",
     "valor"="integer",
     "sinal"="character",
     "credor"="integer",
@@ -144,17 +140,16 @@ empenho <- processa_txt(
   )
 )
 empenho$valor = empenho$valor /100
+empenho$data = as.Date(empenho$data, format = "%d%m%Y")
 #empenho
 
 liquidac <- processa_txt(
   "LIQUIDAC.TXT",
-  c(13,20,2,2,4,13,1,165,30,400,1,20,20,4,1,9,3,1),
+  c(13,20,8,13,1,165,30,400,1,20,20,4,1,9,3,1),
   c(
     "numero_empenho",
     "numero_liquidacao",
-    "dia",
-    "mes",
-    "ano",
+    "data",
     "valor",
     "sinal",
     "obsoleto1",
@@ -172,9 +167,7 @@ liquidac <- processa_txt(
   c(
     "numero_empenho"="character",
     "numero_liquidacao"="integer",
-    "dia"="integer",
-    "mes"="integer",
-    "ano"="integer",
+    "data"="character",
     "valor"="integer",
     "sinal"="character",
     "obsoleto1"="character",
@@ -191,6 +184,7 @@ liquidac <- processa_txt(
   )
 )
 liquidac$valor = liquidac$valor /100
+liquidac$data = as.Date(liquidac$data, format = "%d%m%Y")
 #liquidac
 
 #muda o diretório para salvar os arquivos
