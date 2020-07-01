@@ -264,6 +264,80 @@ bal_rec$arrecadado = bal_rec$arrecadado /100
 bal_rec$previsao_atualizada = bal_rec$previsao_atualizada /100
 #bal_rec
 
+receita <- processa_txt(
+  "RECEITA.TXT",
+  c(20,4,13,13,13,13,13,13,13,13,13,13,13,13,12,12,12,12,12,12,3,4,4),
+  c(
+    "receita",
+    "uniorcam",
+    "arrecadado_janeiro",
+    "arrecadado_fevereiro",
+    "arrecadado_marco",
+    "arrecadado_abril",
+    "arrecadado_maio",
+    "arrecadado_junho",
+    "arrecadado_julho",
+    "arrecadado_agosto",
+    "arrecadado_setembro",
+    "arrecadado_outubro",
+    "arrecadado_novembro",
+    "arrecadado_dezembro",
+    "meta_1bim",
+    "meta_2bim",
+    "meta_3bim",
+    "meta_4bim",
+    "meta_5bim",
+    "meta_6bim",
+    "caracteristica_peculiar_receita",
+    "recurso_vinculado",
+    "complemento_recurso_vinculado"
+  ),
+  c(
+    "receita"="character",
+    "uniorcam"="character",
+    "arrecadado_janeiro"="integer64",
+    "arrecadado_fevereiro"="integer64",
+    "arrecadado_marco"="integer64",
+    "arrecadado_abril"="integer64",
+    "arrecadado_maio"="integer64",
+    "arrecadado_junho"="integer64",
+    "arrecadado_julho"="integer64",
+    "arrecadado_agosto"="integer64",
+    "arrecadado_setembro"="integer64",
+    "arrecadado_outubro"="integer64",
+    "arrecadado_novembro"="integer64",
+    "arrecadado_dezembro"="integer64",
+    "meta_1bim"="integer64",
+    "meta_2bim"="integer64",
+    "meta_3bim"="integer64",
+    "meta_4bim"="integer64",
+    "meta_5bim"="integer64",
+    "meta_6bim"="integer64",
+    "caracteristica_peculiar_receita"="integer",
+    "recurso_vinculado"="integer",
+    "complemento_recurso_vinculado"="integer"
+  )
+)
+receita$arrecadado_janeiro = receita$arrecadado_janeiro /100
+receita$arrecadado_fevereiro = receita$arrecadado_fevereiro /100
+receita$arrecadado_marco = receita$arrecadado_marco /100
+receita$arrecadado_abril = receita$arrecadado_abril /100
+receita$arrecadado_maio = receita$arrecadado_maio /100
+receita$arrecadado_junho = receita$arrecadado_junho /100
+receita$arrecadado_julho = receita$arrecadado_julho /100
+receita$arrecadado_agosto = receita$arrecadado_agosto /100
+receita$arrecadado_setembro = receita$arrecadado_setembro /100
+receita$arrecadado_outubro = receita$arrecadado_outubro /100
+receita$arrecadado_novembro = receita$arrecadado_novembro /100
+receita$arrecadado_dezembro = receita$arrecadado_dezembro /100
+receita$meta_1bim = receita$meta_1bim /100
+receita$meta_2bim = receita$meta_2bim /100
+receita$meta_3bim = receita$meta_3bim /100
+receita$meta_4bim = receita$meta_4bim /100
+receita$meta_5bim = receita$meta_5bim /100
+receita$meta_6bim = receita$meta_6bim /100
+#receita
+
 #muda o diretório para salvar os arquivos
 show(paste('Alterando diretório de trabalho para', destino, '...', sep = ' '))
 setwd(destino)
@@ -275,5 +349,6 @@ system.time({
   write_feather(liquidac, "liquidac.feather")
   write_feather(pagament, "pagament.feather")
   write_feather(bal_rec, "bal_rec.feather")
+  write_feather(receita, "receita.feather")
 })
 show('Fim!')
