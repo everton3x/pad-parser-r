@@ -1,5 +1,5 @@
 #verifica (e instala) pacotes requeridos
-show('Testando se pacotes necessários estão isntalados...')
+show('Testando se pacotes necessários estão instalados...')
 if("feather" %in% rownames(installed.packages()) == FALSE){
   show('Instalando pacote feather...')
   install.packages("feather")
@@ -8,6 +8,7 @@ if("tcltk" %in% rownames(installed.packages()) == FALSE){
   show('Instalando pacote tcltk...')
   install.packages("tcltk")
 }
+
 #carrega pacotes requeridos
 show('Carregando pacote feather...')
 library(feather)
@@ -142,9 +143,55 @@ empenho <- processa_txt(
     "complemento_recurso_vinculado"="integer"
   )
 )
-
-#transformações
 empenho$valor = empenho$valor /100
+#empenho
+
+liquidac <- processa_txt(
+  "LIQUIDAC.TXT",
+  c(13,20,2,2,4,13,1,165,30,400,1,20,20,4,1,9,3,1),
+  c(
+    "numero_empenho",
+    "numero_liquidacao",
+    "dia",
+    "mes",
+    "ano",
+    "valor",
+    "sinal",
+    "obsoleto1",
+    "operacao",
+    "historico",
+    "existe_contrato",
+    "numero_contrato_tce",
+    "numero_contrato",
+    "ano_contrato",
+    "existe_nota_fiscal",
+    "numero_nota_fiscal",
+    "serie_nota_fiscal",
+    "tipo_contrato"
+  ),
+  c(
+    "numero_empenho"="character",
+    "numero_liquidacao"="integer",
+    "dia"="integer",
+    "mes"="integer",
+    "ano"="integer",
+    "valor"="integer",
+    "sinal"="character",
+    "obsoleto1"="character",
+    "operacao"="character",
+    "historico"="character",
+    "existe_contrato"="character",
+    "numero_contrato_tce"="integer",
+    "numero_contrato"="character",
+    "ano_contrato"="integer",
+    "existe_nota_fiscal"="character",
+    "numero_nota_fiscal"="integer",
+    "serie_nota_fiscal"="character",
+    "tipo_contrato"="character"
+  )
+)
+liquidac$valor = liquidac$valor /100
+#liquidac
 
 #muda o diretório para salvar os arquivos
 show(paste('Alterando diretório de trabalho para', destino, '...', sep = ' '))
@@ -154,5 +201,6 @@ setwd(destino)
 show('Salvando arquivos...')
 system.time({
   write_feather(empenho, "empenho.feather")
+  write_feather(liquidac, "liquidac.feather")
 })
 show('Fim!')
