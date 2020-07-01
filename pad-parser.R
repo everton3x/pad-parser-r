@@ -75,9 +75,8 @@ processa_txt <- function(arquivo, larguras, colunas, tipos){
 #definição dos arquivos
 empenho <- processa_txt(
   "EMPENHO.TXT",
-  c(2,2,2,3,4,3,5,15,4,4,13,8,13,1,10,165,03,2,1,20,20,4,400,3,2,1,1,14,4),
+  c(4,2,3,4,3,5,15,4,4,13,8,13,1,10,165,03,2,1,20,20,4,400,3,2,1,1,14,4),
   c(
-    "orgao",
     "uniorcam",
     "funcao",
     "subfuncao",
@@ -108,8 +107,7 @@ empenho <- processa_txt(
     "complemento_recurso_vinculado"
   ),
   c(
-    "orgao"="integer",
-    "uniorcam"="integer",
+    "uniorcam"="character",
     "funcao"="integer",
     "subfuncao"="integer",
     "programa"="integer",
@@ -187,6 +185,44 @@ liquidac$valor = liquidac$valor /100
 liquidac$data = as.Date(liquidac$data, format = "%d%m%Y")
 #liquidac
 
+pagament <- processa_txt(
+  "PAGAMENT.TXT",
+  c(13,20,8,13,1,120,30,20,4,20,4,400,20),
+  c(
+    "numero_empenho",
+    "numero_pagamento",
+    "data",
+    "valor",
+    "sinal",
+    "obsoleto1",
+    "operacao",
+    "conta_contabil_debito",
+    "uniorcam_debito",
+    "conta_contabil_credito",
+    "uniorcam_credito",
+    "historico",
+    "numero_liquidacao"
+  ),
+  c(
+    "numero_empenho"="character",
+    "numero_pagamento"="integer",
+    "data"="character",
+    "valor"="integer",
+    "sinal"="character",
+    "obsoleto1"="character",
+    "operacao"="character",
+    "conta_contabil_debito"="character",
+    "uniorcam_debito"="character",
+    "conta_contabil_credito"="character",
+    "uniorcam_credito"="character",
+    "historico"="character",
+    "numero_liquidacao"="integer"
+  )
+)
+pagament$valor = pagament$valor /100
+pagament$data = as.Date(pagament$data, format = "%d%m%Y")
+#pagament
+
 #muda o diretório para salvar os arquivos
 show(paste('Alterando diretório de trabalho para', destino, '...', sep = ' '))
 setwd(destino)
@@ -196,5 +232,6 @@ show('Salvando arquivos...')
 system.time({
   write_feather(empenho, "empenho.feather")
   write_feather(liquidac, "liquidac.feather")
+  write_feather(pagament, "pagament.feather")
 })
 show('Fim!')
