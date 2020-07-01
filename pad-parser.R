@@ -452,6 +452,107 @@ tce_4111$data = as.Date(tce_4111$data, format = "%d%m%Y")
 tce_4111$valor = tce_4111$valor / 100
 #tce_4111
 
+bal_ver <- processa_txt(
+  "BAL_VER.TXT",
+  c(20,4,13,13,13,13,13,13,148,1,2,1,1,1,1,4,4),
+  c(
+    "conta_contabil",
+    "uniorcam",
+    "saldo_anterior_debito",
+    "saldo_anterior_credito",
+    "movimento_debito",
+    "movimento_credito",
+    "saldo_atual_debito",
+    "saldo_atual_credito",
+    "especificacao",
+    "tipo_nivel",
+    "nivel",
+    "obsoleto1",
+    "escrituracao",
+    "natureza_informacao",
+    "indicador_superavit",
+    "recurso_vinculado",
+    "complemento_recurso_vinculado"
+  ),
+  c(
+    "conta_contabil"="character",
+    "uniorcam"="character",
+    "saldo_anterior_debito"="integer64",
+    "saldo_anterior_credito"="integer64",
+    "movimento_debito"="integer64",
+    "movimento_credito"="integer64",
+    "saldo_atual_debito"="integer64",
+    "saldo_atual_credito"="integer64",
+    "especificacao"="character",
+    "tipo_nivel"="character",
+    "nivel"="integer",
+    "obsoleto1"="character",
+    "escrituracao"="character",
+    "natureza_informacao"="character",
+    "indicador_superavit"="character",
+    "recurso_vinculado"="integer",
+    "complemento_recurso_vinculado"="integer"
+  )
+)
+bal_ver$saldo_anterior_debito = bal_ver$saldo_anterior_debito / 100
+bal_ver$saldo_anterior_credito = bal_ver$saldo_anterior_credito / 100
+bal_ver$movimento_debito = bal_ver$movimento_debito / 100
+bal_ver$movimento_credito = bal_ver$movimento_credito / 100
+bal_ver$saldo_atual_debito = bal_ver$saldo_atual_debito / 100
+bal_ver$saldo_atual_credito = bal_ver$saldo_atual_credito / 100
+#bal_ver
+
+if(file.exists("BVER_ENC.TXT")){
+  bver_enc <- processa_txt(
+    "BVER_ENC.TXT",
+    c(20,4,13,13,13,13,13,13,148,1,2,1,1,1,1,4,4),
+    c(
+      "conta_contabil",
+      "uniorcam",
+      "saldo_anterior_debito",
+      "saldo_anterior_credito",
+      "movimento_debito",
+      "movimento_credito",
+      "saldo_atual_debito",
+      "saldo_atual_credito",
+      "especificacao",
+      "tipo_nivel",
+      "nivel",
+      "obsoleto1",
+      "escrituracao",
+      "natureza_informacao",
+      "indicador_superavit",
+      "recurso_vinculado",
+      "complemento_recurso_vinculado"
+    ),
+    c(
+      "conta_contabil"="character",
+      "uniorcam"="character",
+      "saldo_anterior_debito"="integer64",
+      "saldo_anterior_credito"="integer64",
+      "movimento_debito"="integer64",
+      "movimento_credito"="integer64",
+      "saldo_atual_debito"="integer64",
+      "saldo_atual_credito"="integer64",
+      "especificacao"="character",
+      "tipo_nivel"="character",
+      "nivel"="integer",
+      "obsoleto"="character",
+      "escrituracao"="character",
+      "natureza_informacao"="character",
+      "indicador_superavit"="character",
+      "recurso_vinculado"="integer",
+      "complemento_recurso_vinculado"="integer"
+    )
+  )
+  bver_enc$saldo_anterior_debito = bver_enc$saldo_anterior_debito / 100
+  bver_enc$saldo_anterior_credito = bver_enc$saldo_anterior_credito / 100
+  bver_enc$movimento_debito = bver_enc$movimento_debito / 100
+  bver_enc$movimento_credito = bver_enc$movimento_credito / 100
+  bver_enc$saldo_atual_debito = bver_enc$saldo_atual_debito / 100
+  bver_enc$saldo_atual_credito = bver_enc$saldo_atual_credito / 100
+}#bver_enc
+
 #muda o diretório para salvar os arquivos
 show(paste('Alterando diretório de trabalho para', destino, '...', sep = ' '))
 setwd(destino)
@@ -466,5 +567,9 @@ system.time({
   write_feather(receita, "receita.feather")
   write_feather(bal_desp, "bal_desp.feather")
   write_feather(tce_4111, "tce_4111.feather")
+  write_feather(bal_ver, "bal_ver.feather")
+  if(file.exists("BVER_ENC.TXT")){
+    write_feather(bver_enc, "bver_enc.feather")
+  }
 })
 show('Fim!')
