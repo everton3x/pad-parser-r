@@ -408,6 +408,50 @@ bal_desp$recomposto = bal_desp$recomposto /100
 bal_desp$previsao_ate_termino = bal_desp$previsao_ate_termino /100
 #bal_desp
 
+tce_4111 <- processa_txt(
+  "tce_4111.TXT",
+  c(20,4,4,12,12,13,8,17,1,12,150,1,1,1,4,4),
+  c(
+    "conta_contabil",
+    "uniorcam",
+    "reservado1",
+    "numero_lancamento",
+    "numero_lote",
+    "numero_documento",
+    "data",
+    "valor",
+    "tipo_lancamento",
+    "numero_arquivamento",
+    "historico",
+    "tipo_documento",
+    "natureza_informacao",
+    "indicador_superavit",
+    "recurso_vinculado",
+    "complemento_recurso_vinculado"
+  ),
+  c(
+    "conta_contabil"="character",
+    "uniorcam"="character",
+    "reservado1"="character",
+    "numero_lancamento"="character",
+    "numero_lote"="character",
+    "numero_documento"="character",
+    "data"="character",
+    "valor"="integer64",
+    "tipo_lancamento"="character",
+    "numero_arquivamento"="character",
+    "historico"="character",
+    "tipo_documento"="character",
+    "natureza_informacao"="character",
+    "indicador_superavit"="character",
+    "recurso_vinculado"="integer",
+    "complemento_recurso_vinculado"="integer"
+  )
+)
+tce_4111$data = as.Date(tce_4111$data, format = "%d%m%Y")
+tce_4111$valor = tce_4111$valor / 100
+#tce_4111
+
 #muda o diretório para salvar os arquivos
 show(paste('Alterando diretório de trabalho para', destino, '...', sep = ' '))
 setwd(destino)
@@ -421,5 +465,6 @@ system.time({
   write_feather(bal_rec, "bal_rec.feather")
   write_feather(receita, "receita.feather")
   write_feather(bal_desp, "bal_desp.feather")
+  write_feather(tce_4111, "tce_4111.feather")
 })
 show('Fim!')
