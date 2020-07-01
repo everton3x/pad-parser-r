@@ -338,6 +338,76 @@ receita$meta_5bim = receita$meta_5bim /100
 receita$meta_6bim = receita$meta_6bim /100
 #receita
 
+bal_desp <- processa_txt(
+  "BAL_DESP.TXT",
+  c(4,2,3,4,3,5,6,4,13,13,13,13,13,13,13,13,13,13,13,13,13,13,4),
+  c(
+    "uniorcam",
+    "funcao",
+    "subfuncao",
+    "programa",
+    "obsoleto1",
+    "projativ",
+    "elemento",
+    "recurso_vinculado",
+    "dotacao_inicial",
+    "atualizacao_monetaria",
+    "credito_suplementar",
+    "credito_especial",
+    "credito_extraordinario",
+    "reducao_dotacao",
+    "suplementacao_recurso_vinculado",
+    "reducao_recurso_vinculado",
+    "empenhado",
+    "liquidado",
+    "pago",
+    "limitado",
+    "recomposto",
+    "previsao_ate_termino",
+    "complemento_recurso_vinculado"
+  ),
+  c(
+    "uniorcam"="character",
+    "funcao"="integer",
+    "subfuncao"="integer",
+    "programa"="integer",
+    "obsoleto1"="character",
+    "projativ"="integer",
+    "elemento"="character",
+    "recurso_vinculado"="integer",
+    "dotacao_inicial"="integer64",
+    "atualizacao_monetaria"="integer64",
+    "credito_suplementar"="integer64",
+    "credito_especial"="integer64",
+    "credito_extraordinario"="integer64",
+    "reducao_dotacao"="integer64",
+    "suplementacao_recurso_vinculado"="integer64",
+    "reducao_recurso_vinculado"="integer64",
+    "empenhado"="integer64",
+    "liquidado"="integer64",
+    "pago"="integer64",
+    "limitado"="integer64",
+    "recomposto"="integer64",
+    "previsao_ate_termino"="integer64",
+    "complemento_recurso_vinculado"="integer"
+  )
+)
+bal_desp$dotacao_inicial = bal_desp$dotacao_inicial /100
+bal_desp$atualizacao_monetaria = bal_desp$atualizacao_monetaria /100
+bal_desp$credito_suplementar = bal_desp$credito_suplementar /100
+bal_desp$credito_especial = bal_desp$credito_especial /100
+bal_desp$credito_extraordinario = bal_desp$credito_extraordinario /100
+bal_desp$reducao_dotacao = bal_desp$reducao_dotacao /100
+bal_desp$suplementacao_recurso_vinculado = bal_desp$suplementacao_recurso_vinculado /100
+bal_desp$reducao_recurso_vinculado = bal_desp$reducao_recurso_vinculado /100
+bal_desp$empenhado = bal_desp$empenhado /100
+bal_desp$liquidado = bal_desp$liquidado /100
+bal_desp$liquidado = bal_desp$pago /100
+bal_desp$limitado = bal_desp$limitado /100
+bal_desp$recomposto = bal_desp$recomposto /100
+bal_desp$previsao_ate_termino = bal_desp$previsao_ate_termino /100
+#bal_desp
+
 #muda o diretório para salvar os arquivos
 show(paste('Alterando diretório de trabalho para', destino, '...', sep = ' '))
 setwd(destino)
@@ -350,5 +420,6 @@ system.time({
   write_feather(pagament, "pagament.feather")
   write_feather(bal_rec, "bal_rec.feather")
   write_feather(receita, "receita.feather")
+  write_feather(bal_desp, "bal_desp.feather")
 })
 show('Fim!')
