@@ -8,12 +8,18 @@ if("tcltk" %in% rownames(installed.packages()) == FALSE){
   show('Instalando pacote tcltk...')
   install.packages("tcltk")
 }
+if("bit64" %in% rownames(installed.packages()) == FALSE){
+  show('Instalando pacote bit64...')
+  install.packages("bit64")
+}
 
 #carrega pacotes requeridos
 show('Carregando pacote feather...')
 library(feather)
 show('Carregando pacote tcltk...')
 library(tcltk)
+show('Carregando pacote bit64...')
+library(bit64)
 
 #remove variáveis antigas
 show('Removendo lixo...')
@@ -118,7 +124,7 @@ empenho <- processa_txt(
     "contrapartida_recurso_vinculado"="integer",
     "numero_empenho"="character",
     "data"="character",
-    "valor"="integer",
+    "valor"="integer64",
     "sinal"="character",
     "credor"="integer",
     "obsoleto2"="character",
@@ -166,7 +172,7 @@ liquidac <- processa_txt(
     "numero_empenho"="character",
     "numero_liquidacao"="integer",
     "data"="character",
-    "valor"="integer",
+    "valor"="integer64",
     "sinal"="character",
     "obsoleto1"="character",
     "operacao"="character",
@@ -207,7 +213,7 @@ pagament <- processa_txt(
     "numero_empenho"="character",
     "numero_pagamento"="integer",
     "data"="character",
-    "valor"="integer",
+    "valor"="integer64",
     "sinal"="character",
     "obsoleto1"="character",
     "operacao"="character",
@@ -223,6 +229,41 @@ pagament$valor = pagament$valor /100
 pagament$data = as.Date(pagament$data, format = "%d%m%Y")
 #pagament
 
+bal_rec <- processa_txt(
+  "BAL_REC.TXT",
+  c(20,4,13,13,4,170,1,2,3,13,4),
+  c(
+    "receita",
+    "uniorcam",
+    "orcado",
+    "arrecadado",
+    "recurso_vinculado",
+    "especificacao",
+    "tipo_nivel",
+    "nivel",
+    "caracteristica_peculiar_receita",
+    "previsao_atualizada",
+    "complemento_recurso_vinculado"
+  ),
+  c(
+    "receita"="character",
+    "uniorcam"="character",
+    "orcado"="integer64",
+    "arrecadado"="integer64",
+    "recurso_vinculado"="integer",
+    "especificacao"="character",
+    "tipo_nivel"="character",
+    "nivel"="integer",
+    "caracteristica_peculiar_receita"="integer",
+    "previsao_atualizada"="integer64",
+    "complemento_recurso_vinculado"="integer"
+  )
+)
+bal_rec$orcado = bal_rec$orcado /100
+bal_rec$arrecadado = bal_rec$arrecadado /100
+bal_rec$previsao_atualizada = bal_rec$previsao_atualizada /100
+#bal_rec
+
 #muda o diretório para salvar os arquivos
 show(paste('Alterando diretório de trabalho para', destino, '...', sep = ' '))
 setwd(destino)
@@ -233,5 +274,6 @@ system.time({
   write_feather(empenho, "empenho.feather")
   write_feather(liquidac, "liquidac.feather")
   write_feather(pagament, "pagament.feather")
+  write_feather(bal_rec, "bal_rec.feather")
 })
 show('Fim!')
