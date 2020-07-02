@@ -862,6 +862,22 @@ bvmovant$credito_5bim = bvmovant$credito_5bim /100
 bvmovant$credito_6bim = bvmovant$credito_6bim /100
 #bvmovant
 
+orgao <- processa_txt(
+  "ORGAO.TXT",
+  c(4,2,80),
+  c(
+    "exercicio",
+    "codigo",
+    "nome"
+  ),
+  c(
+    "exercicio"="integer",
+    "codigo"="integer",
+    "nome"="character"
+  )
+)
+#orgao
+
 #muda o diretório para salvar os arquivos
 show(paste('Alterando diretório de trabalho para', destino, '...', sep = ' '))
 setwd(destino)
@@ -886,5 +902,6 @@ system.time({
   write_feather(rec_ant, "rec_ant.feather")
   write_feather(bver_ant, "bver_ant.feather")
   write_feather(bvmovant, "bvmovant.feather")
+  write_feather(orgao, "orgao.feather")
 })
 show('Fim!')
