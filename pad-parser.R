@@ -628,6 +628,62 @@ brec_ant$orcado = brec_ant$orcado /100
 brec_ant$arrecadado = brec_ant$arrecadado /100
 #brec_ant
 
+rec_ant <- processa_txt(
+  "REC_ANT.TXT",
+  c(20,4,13,13,13,13,13,13,13,13,13,13,13,13,3,4,4),
+  c(
+    "receita",
+    "uniorcam",
+    "arrecadado_janeiro",
+    "arrecadado_fevereiro",
+    "arrecadado_marco",
+    "arrecadado_abril",
+    "arrecadado_maio",
+    "arrecadado_junho",
+    "arrecadado_julho",
+    "arrecadado_agosto",
+    "arrecadado_setembro",
+    "arrecadado_outubro",
+    "arrecadado_novembro",
+    "arrecadado_dezembro",
+    "caracteristica_peculiar_receita",
+    "recurso_vinculado",
+    "complemento_recurso_vinculado"
+  ),
+  c(
+    "receita"="character",
+    "uniorcam"="character",
+    "arrecadado_janeiro"="integer64",
+    "arrecadado_fevereiro"="integer64",
+    "arrecadado_marco"="integer64",
+    "arrecadado_abril"="integer64",
+    "arrecadado_maio"="integer64",
+    "arrecadado_junho"="integer64",
+    "arrecadado_julho"="integer64",
+    "arrecadado_agosto"="integer64",
+    "arrecadado_setembro"="integer64",
+    "arrecadado_outubro"="integer64",
+    "arrecadado_novembro"="integer64",
+    "arrecadado_dezembro"="integer64",
+    "caracteristica_peculiar_receita"="integer",
+    "recurso_vinculado"="integer",
+    "complemento_recurso_vinculado"="integer"
+  )
+)
+rec_ant$arrecadado_janeiro = rec_ant$arrecadado_janeiro /100
+rec_ant$arrecadado_fevereiro = rec_ant$arrecadado_fevereiro /100
+rec_ant$arrecadado_marco = rec_ant$arrecadado_marco /100
+rec_ant$arrecadado_abril = rec_ant$arrecadado_abril /100
+rec_ant$arrecadado_maio = rec_ant$arrecadado_maio /100
+rec_ant$arrecadado_junho = rec_ant$arrecadado_junho /100
+rec_ant$arrecadado_julho = rec_ant$arrecadado_julho /100
+rec_ant$arrecadado_agosto = rec_ant$arrecadado_agosto /100
+rec_ant$arrecadado_setembro = rec_ant$arrecadado_setembro /100
+rec_ant$arrecadado_outubro = rec_ant$arrecadado_outubro /100
+rec_ant$arrecadado_novembro = rec_ant$arrecadado_novembro /100
+rec_ant$arrecadado_dezembro = rec_ant$arrecadado_dezembro /100
+#rec_ant
+
 #muda o diretório para salvar os arquivos
 show(paste('Alterando diretório de trabalho para', destino, '...', sep = ' '))
 setwd(destino)
@@ -649,5 +705,6 @@ system.time({
   write_feather(rd_extra, "rd_extra.feather")
   write_feather(decreto, "decreto.feather")
   write_feather(brec_ant, "brec_ant.feather")
+  write_feather(rec_ant, "rec_ant.feather")
 })
 show('Fim!')
