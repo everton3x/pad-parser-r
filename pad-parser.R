@@ -27,10 +27,8 @@ rm(list = ls())
 
 #pega o local dos arquivos
 show('Selecionando origem dos dados...')
-#origem <- choose.dir(default = configuracao$origem, caption = "Selecione o diretório dos TXT")
-#setwd(configuracao$origem)
-#origem <- tclvalue(tkchooseDirectory())
-origem <- "C:/Users/Everton/OneDrive/Prefeitura/2020/PAD/2020-05/pm/MES05"
+origem <- tclvalue(tkchooseDirectory())
+#origem <- "C:/Users/Everton/OneDrive/Prefeitura/2020/PAD/2020-05/pm/MES05"
 if(origem == ""){
   show('Você não selecionou um diretório de origem!')
   quit()
@@ -38,8 +36,8 @@ if(origem == ""){
 
 #pega o diretório onde salvar os arquivos
 show('Selecionando destino dos dados...')
-#destino <- tclvalue(tkchooseDirectory())
-destino <- "C:/Users/Everton/OneDrive/Prefeitura/2020/PAD/2020-05/pm"
+destino <- tclvalue(tkchooseDirectory())
+#destino <- "C:/Users/Everton/OneDrive/Prefeitura/2020/PAD/2020-05/pm"
 if(destino == ""){
   show('Você não selecionou um diretório de destino!')
   quit()
