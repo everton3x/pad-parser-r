@@ -766,6 +766,52 @@ brub_ant$pago_5bim = brub_ant$pago_5bim / 100
 brub_ant$pago_6bim = brub_ant$pago_6bim / 100
 #brub_ant
 
+bver_ant <- processa_txt(
+  "BVER_ANT.TXT",
+  c(20,4,13,13,13,13,13,13,148,1,2,1,1,1,1),
+  c(
+    "conta_contabil",
+    "uniorcam",
+    "saldo_anterior_debito",
+    "saldo_anterior_credito",
+    "movimento_debito",
+    "movimento_credito",
+    "saldo_atual_debito",
+    "saldo_atual_credito",
+    "especificacao",
+    "tipo_nivel",
+    "nivel",
+    "obsoleto1",
+    "escrituracao",
+    "natureza_informacao",
+    "indicador_superavit"
+  ),
+  c(
+    "conta_contabil"="character",
+    "uniorcam"="character",
+    "saldo_anterior_debito"="integer64",
+    "saldo_anterior_credito"="integer64",
+    "movimento_debito"="integer64",
+    "movimento_credito"="integer64",
+    "saldo_atual_debito"="integer64",
+    "saldo_atual_credito"="integer64",
+    "especificacao"="character",
+    "tipo_nivel"="character",
+    "nivel"="integer",
+    "obsoleto1"="character",
+    "escrituracao"="character",
+    "natureza_informacao"="character",
+    "indicador_superavit"="character"
+  )
+)
+bver_ant$saldo_anterior_debito = bver_ant$saldo_anterior_debito / 100
+bver_ant$saldo_anterior_credito = bver_ant$saldo_anterior_credito / 100
+bver_ant$movimento_debito = bver_ant$movimento_debito / 100
+bver_ant$movimento_credito = bver_ant$movimento_credito / 100
+bver_ant$saldo_atual_debito = bver_ant$saldo_atual_debito / 100
+bver_ant$saldo_atual_credito = bver_ant$saldo_atual_credito / 100
+#bver_ant
+
 #muda o diretório para salvar os arquivos
 show(paste('Alterando diretório de trabalho para', destino, '...', sep = ' '))
 setwd(destino)
@@ -788,6 +834,6 @@ system.time({
   write_feather(decreto, "decreto.feather")
   write_feather(brec_ant, "brec_ant.feather")
   write_feather(rec_ant, "rec_ant.feather")
-  write_feather(brub_ant, "brub_ant.feather")
+  write_feather(bver_ant, "bver_ant.feather")
 })
 show('Fim!')
