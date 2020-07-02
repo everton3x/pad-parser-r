@@ -898,6 +898,72 @@ uniorcam <- processa_txt(
 )
 #uniorcam
 
+funcao <- processa_txt(
+  "FUNCAO.TXT",
+  c(4,2,80),
+  c(
+    "exercicio",
+    "codigo",
+    "nome"
+  ),
+  c(
+    "exercicio"="integer",
+    "codigo"="integer",
+    "nome"="character"
+  )
+)
+#funcao
+
+subfunc <- processa_txt(
+  "SUBFUNC.TXT",
+  c(4,3,80),
+  c(
+    "exercicio",
+    "codigo",
+    "nome"
+  ),
+  c(
+    "exercicio"="integer",
+    "codigo"="integer",
+    "nome"="character"
+  )
+)
+#subfunc
+
+programa <- processa_txt(
+  "PROGRAMA.TXT",
+  c(4,4,80),
+  c(
+    "exercicio",
+    "codigo",
+    "nome"
+  ),
+  c(
+    "exercicio"="integer",
+    "codigo"="character",
+    "nome"="character"
+  )
+)
+#programa
+
+projativ <- processa_txt(
+  "PROJATIV.TXT",
+  c(4,5,80,2),
+  c(
+    "exercicio",
+    "codigo",
+    "nome",
+    "identificador"
+  ),
+  c(
+    "exercicio"="integer",
+    "codigo"="character",
+    "nome"="character",
+    "identificador"="integer"
+  )
+)
+#programa
+
 #muda o diretório para salvar os arquivos
 show(paste('Alterando diretório de trabalho para', destino, '...', sep = ' '))
 setwd(destino)
@@ -924,5 +990,9 @@ system.time({
   write_feather(bvmovant, "bvmovant.feather")
   write_feather(orgao, "orgao.feather")
   write_feather(uniorcam, "uniorcam.feather")
+  write_feather(funcao, "funcao.feather")
+  write_feather(subfunc, "subfunc.feather")
+  write_feather(programa, "programa.feather")
+  write_feather(projativ, "projativ.feather")
 })
 show('Fim!')
