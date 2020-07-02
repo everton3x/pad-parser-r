@@ -25,16 +25,6 @@ library(bit64)
 show('Removendo lixo...')
 rm(list = ls())
 
-#carrega configuracoes, se existir
-#show('Verificando se existem configurações...')
-#if(file.exists("config.feather")){
-#  show('Carregando configurações...')
-#  configuracao <- read_feather("config.feather")
-#}else{
-#  show('Criando configurações padrão...')
-#  configuracao = data.frame(origem='.', destino='.', stringsAsFactors = FALSE)
-#}
-
 #pega o local dos arquivos
 show('Selecionando origem dos dados...')
 #origem <- choose.dir(default = configuracao$origem, caption = "Selecione o diretório dos TXT")
@@ -576,6 +566,68 @@ rd_extra <- processa_txt(
 rd_extra$valor = rd_extra$valor / 100
 #rd_extra
 
+decreto <- processa_txt(
+  "DECRETO.TXT",
+  c(20,8,20,8,13,13,1,1),
+  c(
+    "numero_lei",
+    "data_lei",
+    "numero_decreto",
+    "data_decreto",
+    "valor_adicional",
+    "valor_reducao",
+    "tipo_adicional",
+    "origem_recurso"
+  ),
+  c(
+    "numero_lei"="character",
+    "data_lei"="character",
+    "numero_decreto"="character",
+    "data_decreto"="character",
+    "valor_adicional"="integer64",
+    "valor_reducao"="integer64",
+    "tipo_adicional"="integer",
+    "origem_recurso"="integer"
+  )
+)
+decreto$valor_adicional = decreto$valor_adicional / 100
+decreto$valor_reducao = decreto$valor_reducao / 100
+decreto$data_lei = as.Date(decreto$data_lei, format = "%d%m%Y")
+decreto$data_decreto = as.Date(decreto$data_decreto, format = "%d%m%Y")
+#decreto
+
+brec_ant <- processa_txt(
+  "BREC_ANT.TXT",
+  c(20,4,13,13,4,170,1,2,3,4),
+  c(
+    "receita",
+    "uniorcam",
+    "orcado",
+    "arrecadado",
+    "recurso_vinculado",
+    "especificacao",
+    "tipo_nivel",
+    "nivel",
+    "caracteristica_peculiar_receita",
+    "complemento_recurso_vinculado"
+  ),
+  c(
+    "receita"="character",
+    "uniorcam"="character",
+    "orcado"="integer64",
+    "arrecadado"="integer64",
+    "recurso_vinculado"="integer",
+    "especificacao"="character",
+    "tipo_nivel"="character",
+    "nivel"="integer",
+    "caracteristica_peculiar_receita"="integer",
+    "complemento_recurso_vinculado"="integer"
+  )
+)
+brec_ant$orcado = brec_ant$orcado /100
+brec_ant$arrecadado = brec_ant$arrecadado /100
+#brec_ant
+
 #muda o diretório para salvar os arquivos
 show(paste('Alterando diretório de trabalho para', destino, '...', sep = ' '))
 setwd(destino)
@@ -595,5 +647,7 @@ system.time({
     write_feather(bver_enc, "bver_enc.feather")
   }
   write_feather(rd_extra, "rd_extra.feather")
+  write_feather(decreto, "decreto.feather")
+  write_feather(brec_ant, "brec_ant.feather")
 })
 show('Fim!')
