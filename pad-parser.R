@@ -962,7 +962,43 @@ projativ <- processa_txt(
     "identificador"="integer"
   )
 )
-#programa
+#projativ
+
+rubrica <- processa_txt(
+  "RUBRICA.TXT",
+  c(4,15,110,1,2),
+  c(
+    "exercicio",
+    "rubrica",
+    "especificacao",
+    "tipo_nivel",
+    "nivel"
+  ),
+  c(
+    "exercicio"="integer",
+    "rubrica"="character",
+    "especificacao"="character",
+    "tipo_nivel"="character",
+    "nivel"="integer"
+  )
+)
+#rubrica
+
+recurso <- processa_txt(
+  "RECURSO.TXT",
+  c(4,80,160),
+  c(
+    "recurso_vinculado",
+    "nome",
+    "finalidade"
+  ),
+  c(
+    "recurso_vinculado"="integer",
+    "nome"="character",
+    "finalidade"="character"
+  )
+)
+#recurso
 
 #muda o diretório para salvar os arquivos
 show(paste('Alterando diretório de trabalho para', destino, '...', sep = ' '))
@@ -994,5 +1030,7 @@ system.time({
   write_feather(subfunc, "subfunc.feather")
   write_feather(programa, "programa.feather")
   write_feather(projativ, "projativ.feather")
+  write_feather(rubrica, "rubrica.feather")
+  write_feather(recurso, "recurso.feather")
 })
 show('Fim!')
