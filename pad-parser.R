@@ -553,6 +553,29 @@ if(file.exists("BVER_ENC.TXT")){
   bver_enc$saldo_atual_credito = bver_enc$saldo_atual_credito / 100
 }#bver_enc
 
+rd_extra <- processa_txt(
+  "RD_EXTRA.TXT",
+  c(20,4,13,1,2,4),
+  c(
+    "conta_contabil",
+    "uniorcam",
+    "valor",
+    "ingresso_dispendio",
+    "classificacao",
+    "recurso_vinculado"
+  ),
+  c(
+    "conta_contabil"="character",
+    "uniorcam"="character",
+    "valor"="integer64",
+    "ingresso_dispendio"="character",
+    "classificacao"="integer",
+    "recurso_vinculado"="integer"
+  )
+)
+rd_extra$valor = rd_extra$valor / 100
+#rd_extra
+
 #muda o diretório para salvar os arquivos
 show(paste('Alterando diretório de trabalho para', destino, '...', sep = ' '))
 setwd(destino)
@@ -571,5 +594,6 @@ system.time({
   if(file.exists("BVER_ENC.TXT")){
     write_feather(bver_enc, "bver_enc.feather")
   }
+  write_feather(rd_extra, "rd_extra.feather")
 })
 show('Fim!')
