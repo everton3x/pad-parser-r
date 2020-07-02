@@ -812,6 +812,56 @@ bver_ant$saldo_atual_debito = bver_ant$saldo_atual_debito / 100
 bver_ant$saldo_atual_credito = bver_ant$saldo_atual_credito / 100
 #bver_ant
 
+bvmovant <- processa_txt(
+  "BVMOVANT.TXT",
+  c(20,4,13,13,13,13,13,13,13,13,13,13,13,13),
+  c(
+    "conta_contabil",
+    "uniorcam",
+    "debito_1bim",
+    "credito_1bim",
+    "debito_2bim",
+    "credito_2bim",
+    "debito_3bim",
+    "credito_3bim",
+    "debito_4bim",
+    "credito_4bim",
+    "debito_5bim",
+    "credito_5bim",
+    "debito_6bim",
+    "credito_6bim"
+  ),
+  c(
+    "conta_contabil"="character",
+    "uniorcam"="character",
+    "debito_1bim"="integer64",
+    "credito_1bim"="integer64",
+    "debito_2bim"="integer64",
+    "credito_2bim"="integer64",
+    "debito_3bim"="integer64",
+    "credito_3bim"="integer64",
+    "debito_4bim"="integer64",
+    "credito_4bim"="integer64",
+    "debito_5bim"="integer64",
+    "credito_5bim"="integer64",
+    "debito_6bim"="integer64",
+    "credito_6bim"="integer64"
+  )
+)
+bvmovant$debito_1bim = bvmovant$debito_1bim /100
+bvmovant$debito_2bim = bvmovant$debito_2bim /100
+bvmovant$debito_3bim = bvmovant$debito_3bim /100
+bvmovant$debito_4bim = bvmovant$debito_4bim /100
+bvmovant$debito_5bim = bvmovant$debito_5bim /100
+bvmovant$debito_6bim = bvmovant$debito_6bim /100
+bvmovant$credito_1bim = bvmovant$credito_1bim /100
+bvmovant$credito_2bim = bvmovant$credito_2bim /100
+bvmovant$credito_3bim = bvmovant$credito_3bim /100
+bvmovant$credito_4bim = bvmovant$credito_4bim /100
+bvmovant$credito_5bim = bvmovant$credito_5bim /100
+bvmovant$credito_6bim = bvmovant$credito_6bim /100
+#bvmovant
+
 #muda o diretório para salvar os arquivos
 show(paste('Alterando diretório de trabalho para', destino, '...', sep = ' '))
 setwd(destino)
@@ -835,5 +885,6 @@ system.time({
   write_feather(brec_ant, "brec_ant.feather")
   write_feather(rec_ant, "rec_ant.feather")
   write_feather(bver_ant, "bver_ant.feather")
+  write_feather(bvmovant, "bvmovant.feather")
 })
 show('Fim!')
