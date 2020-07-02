@@ -684,6 +684,88 @@ rec_ant$arrecadado_novembro = rec_ant$arrecadado_novembro /100
 rec_ant$arrecadado_dezembro = rec_ant$arrecadado_dezembro /100
 #rec_ant
 
+brub_ant <- processa_txt(
+  "BRUB_ANT.TXT",
+  c(4,2,3,4,3,5,15,4,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,4),
+  c(
+    "uniorcam",
+    "funcao",
+    "subfuncao",
+    "programa",
+    "obsoleto1",
+    "projativ",
+    "rubrica",
+    "recurso_vinculado",
+    "empenhado_1bim",
+    "empenhado_2bim",
+    "empenhado_3bim",
+    "empenhado_4bim",
+    "empenhado_5bim",
+    "empenhado_6bim",
+    "liquidado_1bim",
+    "liquidado_2bim",
+    "liquidado_3bim",
+    "liquidado_4bim",
+    "liquidado_5bim",
+    "liquidado_6bim",
+    "pago_1bim",
+    "pago_2bim",
+    "pago_3bim",
+    "pago_4bim",
+    "pago_5bim",
+    "pago_6bim",
+    "complemento_recurso_vinculado"
+  ),
+  c(
+    "uniorcam"="character",
+    "funcao"="integer",
+    "subfuncao"="integer",
+    "programa"="integer",
+    "obsoleto1"="integer",
+    "projativ"="integer",
+    "rubrica"="character",
+    "recurso_vinculado"="integer",
+    "empenhado_1bim"="integer64",
+    "empenhado_2bim"="integer64",
+    "empenhado_3bim"="integer64",
+    "empenhado_4bim"="integer64",
+    "empenhado_5bim"="integer64",
+    "empenhado_6bim"="integer64",
+    "liquidado_1bim"="integer64",
+    "liquidado_2bim"="integer64",
+    "liquidado_3bim"="integer64",
+    "liquidado_4bim"="integer64",
+    "liquidado_5bim"="integer64",
+    "liquidado_6bim"="integer64",
+    "pago_1bim"="integer64",
+    "pago_2bim"="integer64",
+    "pago_3bim"="integer64",
+    "pago_4bim"="integer64",
+    "pago_5bim"="integer64",
+    "pago_6bim"="integer64",
+    "complemento_recurso_vinculado"="integer"
+  )
+)
+brub_ant$empenhado_1bim = brub_ant$empenhado_1bim / 100
+brub_ant$empenhado_2bim = brub_ant$empenhado_2bim / 100
+brub_ant$empenhado_3bim = brub_ant$empenhado_3bim / 100
+brub_ant$empenhado_4bim = brub_ant$empenhado_4bim / 100
+brub_ant$empenhado_5bim = brub_ant$empenhado_5bim / 100
+brub_ant$empenhado_6bim = brub_ant$empenhado_6bim / 100
+brub_ant$liquidado_1bim = brub_ant$liquidado_1bim / 100
+brub_ant$liquidado_2bim = brub_ant$liquidado_2bim / 100
+brub_ant$liquidado_3bim = brub_ant$liquidado_3bim / 100
+brub_ant$liquidado_4bim = brub_ant$liquidado_4bim / 100
+brub_ant$liquidado_5bim = brub_ant$liquidado_5bim / 100
+brub_ant$liquidado_6bim = brub_ant$liquidado_6bim / 100
+brub_ant$pago_1bim = brub_ant$pago_1bim / 100
+brub_ant$pago_2bim = brub_ant$pago_2bim / 100
+brub_ant$pago_3bim = brub_ant$pago_3bim / 100
+brub_ant$pago_4bim = brub_ant$pago_4bim / 100
+brub_ant$pago_5bim = brub_ant$pago_5bim / 100
+brub_ant$pago_6bim = brub_ant$pago_6bim / 100
+#brub_ant
+
 #muda o diretório para salvar os arquivos
 show(paste('Alterando diretório de trabalho para', destino, '...', sep = ' '))
 setwd(destino)
@@ -706,5 +788,6 @@ system.time({
   write_feather(decreto, "decreto.feather")
   write_feather(brec_ant, "brec_ant.feather")
   write_feather(rec_ant, "rec_ant.feather")
+  write_feather(brub_ant, "brub_ant.feather")
 })
 show('Fim!')
