@@ -1000,6 +1000,42 @@ recurso <- processa_txt(
 )
 #recurso
 
+credor <- processa_txt(
+  "CREDOR.TXT",
+  c(10,60,14,15,15,50,30,2,8,15,15,2,2),
+  c(
+    "credor",
+    "nome",
+    "cpf_cnpj",
+    "inscricao_estadual",
+    "inscricao_municipal",
+    "endereco",
+    "cidade",
+    "uf",
+    "cep",
+    "fone",
+    "fax",
+    "tipo_credor",
+    "tipo_pessoa"
+  ),
+  c(
+    "credor"="integer",
+    "nome"="character",
+    "cpf_cnpj"="character",
+    "inscricao_estadual"="character",
+    "inscricao_municipal"="character",
+    "endereco"="character",
+    "cidade"="character",
+    "uf"="character",
+    "cep"="character",
+    "fone"="character",
+    "fax"="character",
+    "tipo_credor"="integer",
+    "tipo_pessoa"="integer"
+  )
+)
+#credor
+
 #muda o diretório para salvar os arquivos
 show(paste('Alterando diretório de trabalho para', destino, '...', sep = ' '))
 setwd(destino)
@@ -1032,5 +1068,6 @@ system.time({
   write_feather(projativ, "projativ.feather")
   write_feather(rubrica, "rubrica.feather")
   write_feather(recurso, "recurso.feather")
+  write_feather(credor, "credor.feather")
 })
 show('Fim!')
