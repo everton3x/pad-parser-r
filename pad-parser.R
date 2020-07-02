@@ -872,11 +872,31 @@ orgao <- processa_txt(
   ),
   c(
     "exercicio"="integer",
-    "codigo"="integer",
+    "codigo"="character",
     "nome"="character"
   )
 )
 #orgao
+
+uniorcam <- processa_txt(
+  "UNIORCAM.TXT",
+  c(4,4,80,2,14),
+  c(
+    "exercicio",
+    "codigo",
+    "nome",
+    "identificador",
+    "cnpj"
+  ),
+  c(
+    "exercicio"="integer",
+    "codigo"="character",
+    "nome"="character",
+    "identificador"="character",
+    "cnpj"="character"
+  )
+)
+#uniorcam
 
 #muda o diretório para salvar os arquivos
 show(paste('Alterando diretório de trabalho para', destino, '...', sep = ' '))
@@ -903,5 +923,6 @@ system.time({
   write_feather(bver_ant, "bver_ant.feather")
   write_feather(bvmovant, "bvmovant.feather")
   write_feather(orgao, "orgao.feather")
+  write_feather(uniorcam, "uniorcam.feather")
 })
 show('Fim!')
