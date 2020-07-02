@@ -1036,6 +1036,34 @@ credor <- processa_txt(
 )
 #credor
 
+cta_disp <- processa_txt(
+  "CTA_DISP.TXT",
+  c(20,4,4,5,5,20,1,1,4),
+  c(
+    "conta_contabil",
+    "uniorcam",
+    "recurso_vinculado",
+    "banco",
+    "agencia",
+    "conta_corrente",
+    "tipo_conta",
+    "classificacao_disponivel",
+    "complemento_recurso_vinculado"
+  ),
+  c(
+    "conta_contabil"="character",
+    "uniorcam"="character",
+    "recurso_vinculado"="integer",
+    "banco"="integer",
+    "agencia"="character",
+    "conta_corrente"="character",
+    "tipo_conta"="integer",
+    "classificacao_disponivel"="integer",
+    "complemento_recurso_vinculado"="integer"
+  )
+)
+#cta_disp
+
 #muda o diretório para salvar os arquivos
 show(paste('Alterando diretório de trabalho para', destino, '...', sep = ' '))
 setwd(destino)
@@ -1069,5 +1097,6 @@ system.time({
   write_feather(rubrica, "rubrica.feather")
   write_feather(recurso, "recurso.feather")
   write_feather(credor, "credor.feather")
+  write_feather(cta_disp, "cta_disp.feather")
 })
 show('Fim!')
