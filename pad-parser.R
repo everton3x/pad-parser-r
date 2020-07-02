@@ -54,6 +54,11 @@ processa_txt <- function(arquivo, larguras, colunas, tipos){
   nlinhas <- length(
     readLines(arquivo)
   )
+  
+  if(nlinhas <= 2){
+    return(data.frame())
+  }
+  
   show(paste('Processando', arquivo, '...', sep = ' '))
   dados <- read.fwf(
     arquivo,
@@ -1064,6 +1069,38 @@ cta_disp <- processa_txt(
 )
 #cta_disp
 
+cta_oper <- processa_txt(
+  "CTA_OPER.TXT",
+  c(30,8,13,1,4,20,4,20,4,4),
+  c(
+    "codigo",
+    "data",
+    "valor",
+    "sinal",
+    "recurso_vinculado",
+    "receita",
+    "uniorcam_receita",
+    "conta_contabil",
+    "uniorcam_conta_contabil",
+    "complemento_recurso_vinculado"
+  ),
+  c(
+    "codigo"="character",
+    "data"="character",
+    "valor"="integer64",
+    "sinal"="character",
+    "recurso_vinculado"="integer",
+    "receita"="character",
+    "uniorcam_receita"="character",
+    "conta_contabil"="character",
+    "uniorcam_conta_contabil"="character",
+    "complemento_recurso_vinculado"="integer"
+  )
+)
+cta_oper$data = as.Date(cta_oper$data, format = "%d%m%Y")
+cta_oper$valor = cta_oper$valor / 100
+#cta_oper
+
 #muda o diretório para salvar os arquivos
 show(paste('Alterando diretório de trabalho para', destino, '...', sep = ' '))
 setwd(destino)
@@ -1098,5 +1135,6 @@ system.time({
   write_feather(recurso, "recurso.feather")
   write_feather(credor, "credor.feather")
   write_feather(cta_disp, "cta_disp.feather")
+  write_feather(cta_oper, "cta_oper.feather")
 })
 show('Fim!')
