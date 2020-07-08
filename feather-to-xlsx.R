@@ -1,3 +1,4 @@
+options(java.parameters = "- Xmx2048m")
 #verifica (e instala) pacotes requeridos
 show('Testando se pacotes necessários estão instalados...')
 if("feather" %in% rownames(installed.packages()) == FALSE){
